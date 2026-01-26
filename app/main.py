@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from . import models, database
+from . import models, database1
 from .routers import markets, categories, products
 
 # Создать таблицы

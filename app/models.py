@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Text
 from sqlalchemy.orm import relationship
-from .database import Base
+from .database1 import Base
 
 
 class Market(Base):
@@ -18,6 +18,7 @@ class Category(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
+    icon = Column(String, nullable=True)  # ← Новое поле для иконки
 
     products = relationship("Product", back_populates="category")
 

@@ -22,6 +22,7 @@ class MarketResponse(MarketBase):
 # Category schemas
 class CategoryBase(BaseModel):
     name: str
+    icon: Optional[str] = None  # ← Новое поле
 
 
 class CategoryCreate(CategoryBase):

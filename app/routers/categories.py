@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List
-from .. import models, schemas, database
+from .. import models, schemas, database1
 
 router = APIRouter(prefix="/api/v1/categories", tags=["categories"])
 
