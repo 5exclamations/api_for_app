@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
-from .. import models, schemas, auth, database1
-
+from .. import models, schemas, auth, database
 router = APIRouter(prefix="/api/v1/items", tags=["items"])
 
 @router.post("/", response_model=schemas.ItemResponse, status_code=status.HTTP_201_CREATED)
@@ -11,7 +10,6 @@ def create_item(
     db: Session = Depends(database.get_db),
     current_user: models.User = Depends(auth.get_current_user)
 ):
-    """Создать новый элемент (требуется авторизация)"""
     db_item = models.Item(**item.dict(), owner_id=current_user.id)
     db.add(db_item)
     db.commit()
@@ -25,7 +23,6 @@ def get_items(
     db: Session = Depends(database.get_db),
     current_user: models.User = Depends(auth.get_current_user)
 ):
-    """Получить список элементов текущего пользователя"""
     items = db.query(models.Item).filter(
         models.Item.owner_id == current_user.id
     ).offset(skip).limit(limit).all()
@@ -37,7 +34,6 @@ def get_item(
     db: Session = Depends(database.get_db),
     current_user: models.User = Depends(auth.get_current_user)
 ):
-    """Получить элемент по ID"""
     item = db.query(models.Item).filter(
         models.Item.id == item_id,
         models.Item.owner_id == current_user.id
@@ -52,7 +48,6 @@ def delete_item(
     db: Session = Depends(database.get_db),
     current_user: models.User = Depends(auth.get_current_user)
 ):
-    """Удалить элемент"""
     item = db.query(models.Item).filter(
         models.Item.id == item_id,
         models.Item.owner_id == current_user.id

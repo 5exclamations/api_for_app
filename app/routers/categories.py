@@ -1,18 +1,15 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List
-from .. import models, schemas, database1
-
+from .. import models, schemas, database
 router = APIRouter(prefix="/api/v1/categories", tags=["categories"])
 
 @router.get("/", response_model=List[schemas.CategoryResponse])
 def get_categories(db: Session = Depends(database.get_db)):
-    """Получить все категории"""
     return db.query(models.Category).all()
 
 @router.post("/", response_model=schemas.CategoryResponse)
 def create_category(category: schemas.CategoryCreate, db: Session = Depends(database.get_db)):
-    """Создать новую категорию"""
     db_category = models.Category(**category.dict())
     db.add(db_category)
     db.commit()
