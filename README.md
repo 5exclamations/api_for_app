@@ -2,6 +2,11 @@
 
 # Market Price Tracker API
 
+
+    Backend API used by this app: https://github.com/5exclamations/api_for_app
+
+    This Flutter client consumes the API endpoints for markets, categories, and products.
+
 FastAPI backend for a Flutter app that tracks product prices across markets — with filtering, searching, sorting, and discount support.
 
 <img src="https://img.shields.io/badge/FastAPI-API-009688?logo=fastapi&logoColor=white" alt="FastAPI" />
