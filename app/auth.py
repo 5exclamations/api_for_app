@@ -21,19 +21,19 @@ def get_password_hash(password: str) -> str:
 def create_access_token(data: dict) -> str:
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(
-        minutes=database.settings.ACCESS_TOKEN_EXPIRE_MINUTES
+        minutes=database1.settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
     to_encode.update({"exp": expire})
     return jwt.encode(
         to_encode,
-        database.settings.SECRET_KEY,
-        algorithm=database.settings.ALGORITHM
+        database1.settings.SECRET_KEY,
+        algorithm=database1.settings.ALGORITHM
     )
 
 
 async def get_current_user(
         credentials: HTTPAuthorizationCredentials = Depends(security),
-        db: Session = Depends(database.get_db)
+        db: Session = Depends(database1.get_db)
 ) -> models.User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -43,8 +43,8 @@ async def get_current_user(
         token = credentials.credentials
         payload = jwt.decode(
             token,
-            database.settings.SECRET_KEY,
-            algorithms=[database.settings.ALGORITHM]
+            database1.settings.SECRET_KEY,
+            algorithms=[database1.settings.ALGORITHM]
         )
         email: str = payload.get("sub")
         if email is None:

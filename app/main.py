@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from . import models, database
+from . import models, database1
 from .routers import markets, categories, products
 
-models.Base.metadata.create_all(bind=database.engine)
+models.Base.metadata.create_all(bind=database1.engine)
 
 app = FastAPI(
     title="Market Price Tracker API",
