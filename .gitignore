@@ -3,5 +3,7 @@ __pycache__/
 *.pyc
 .idea/
 .env
+.env.*
+!.env.example
 products.db
 seed_data.py

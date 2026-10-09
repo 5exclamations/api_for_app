@@ -101,3 +101,17 @@ Local setup
 
 This backend demonstrates practical API engineering: queryable catalog endpoints, clean schema boundaries, ORM models with relationships, CORS for mobile clients, and a foundation for JWT auth + user isolation.
 It’s built to be extendable (pagination, admin-only create routes, price history tables, caching, rate limits, etc.).
+
+## Configuration
+
+Configuration is read from environment variables (via `pydantic-settings`, which also reads a local `.env` file). No credentials are stored in this repository.
+
+| Variable | Required | Description |
+|---|---|---|
+| `DATABASE_URL` | yes | SQLAlchemy database URL (PostgreSQL in production) |
+| `SECRET_KEY` | yes | Secret used to sign JWT access tokens |
+| `ALGORITHM` | no | JWT algorithm, default `HS256` |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | no | Token lifetime, default `30` |
+
+* **Production (Render):** set the variables in the Render dashboard under *Service → Environment*.
+* **Local development:** copy `.env.example` to `.env` and fill in your own values. `.env` files are gitignored.
